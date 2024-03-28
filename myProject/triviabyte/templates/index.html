@@ -1,0 +1,148 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia Byte</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="{% static 'js/category.js' %}"></script>
+
+
+    <!-- CSS for header background image -->
+    <style>
+        header {
+            background-image: url("{% static 'images/background.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+    </style>
+</head>
+<body id="page-top">
+
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <div class="container px-5">
+            <img src="{% static 'images/logo.png' %}" alt="Logo" height="70">
+            <span class="brand-name">
+                <span style="color: yellow;"><strong>Trivia</strong></span>
+                <span style="color: #f80ff8;"><strong>By</strong></span><span style="color: black;"><strong>Te</strong></span>
+            </span>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <div class="slogan">
+                <p>Quiz Time, Byte Me!</p>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Header-->
+<header>
+    <section id="scroll" class="bg-gradient-purple-pink">
+        <div class="container mt-5 pt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <form action="{% url 'get_questions' %}" method="GET">
+                        <div class="form-group">
+                            <select name="category" class="form-control">
+                                <option value="">Pick A Category</option>
+                                {% for category in categories %}
+                                    <option value="{{ category.name }}">{{ category.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-danger mt-3">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</header>
+
+<!-- Category selection form -->
+<div id="question-form">
+    <form id="category-form">
+        <!-- Your category selection form -->
+    </form>
+</div>
+
+<!-- Questions container -->
+<div id="questions-container" style="display: none;">
+    <!-- Questions will be displayed here -->
+</div>
+
+<!-- Next and Submit buttons -->
+<button id="next-button" style="display: none;">Next</button>
+<button id="submit-button" style="display: none;">Submit</button>
+
+<!-- Content section 1-->
+<section class="bg-general-knowledge">
+    <div class="container">
+        <div class="row gx-5 align-items-center">
+            <div class="col-lg-6 order-lg-2">
+                <div class="p-5 text-center">
+                    <img class="rounded-circle" src="{% static 'images/general knowledge.jpg' %}" alt="General Knowledge..." width="400" height="400" >
+                </div>
+            </div>
+            <div class="col-lg-6 order-lg-1">
+                <div class="p-5">
+                    <h2 class="general-knowledge">General Knowledge...</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-science">
+    <div class="container px-5">
+        <div class="row gx-5 align-items-center">
+            <div class="col-lg-6 order-lg-1">
+                <div class="p-5">
+                    <h2 class="science">Science...</h2>
+                </div>
+            </div>
+            <div class="col-lg-6 order-lg-2">
+                <div class="p-5 text-center">
+                    <img class="img-fluid rounded-circle" src="{% static 'images/science.jpg' %}" alt="Science" width="400" height="400" >
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-music">
+    <div class="container">
+        <div class="row gx-5 align-items-center">
+            <div class="col-lg-6 order-lg-2">
+                <div class="p-5 text-center">
+                    <img class="rounded-circle" src="{% static 'images/music.jpg' %}" alt="Music" width="400" height="400">
+                </div>
+            </div>
+            <div class="col-lg-6 order-lg-1">
+                <div class="p-5">
+                    <h2 class="music">Music...</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer-->
+<footer class="py-5 bg-black">
+    <div class="container px-5">
+        <p class="m-0 text-center text-white small">Copyright &copy; Trivia Byte 2024</p>
+    </div>
+</footer>
+
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/scripts.js"></script>
+<script src="js/script.js"></script>
+<script src="js/questions.js"></script>
+
+<a href="quiz.html">Play</a>
+</body>
+</html>

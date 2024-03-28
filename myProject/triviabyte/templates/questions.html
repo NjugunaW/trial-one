@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Question</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.4.21/dist/vue.global.min.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <div class="container mt-5 pt-5">
+        <div class="col-md-6 mx-auto">
+            <h3>{{category}}</h3>
+            <div v-if="question">
+                <hr>
+                <p>{{ question.question }}</p>
+                <div v-for="answer in question.answers">
+                    <input class="form-check-input" type="radio" :id="answer.id" :value="answer.text" v-model="selectedAnswer">
+                    <label class="form-check-label" :for="answer.id">{{ answer.text }}</label>
+                </div>
+                <button @click="submitAnswer">Submit</button>
+            </div>
+            <div v-else>
+                <p>No question available</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                category: '',
+                question: null,
+                selectedAnswer: ''
+            };
+        },
+        methods: {
+            fetchQuestion() {
+                // Make an API request to fetch a question
+                // Replace 'YOUR_API_ENDPOINT' with your actual API endpoint
+                fetch('/get-question/')
+                    .then(response => response.json())
+                    .then(data => {
+                        this.question = data; // Assuming data is returned in the correct format
+                    })
+                    .catch(error => {
+                        console.error('Error fetching question:', error);
+                    });
+            },
+            submitAnswer() {
+                // Handle submitting answer logic here
+                console.log('Selected answer:', this.selectedAnswer);
+            }
+        },
+        created() {
+            this.fetchQuestion();
+        }
+    });
+
+    app.mount('#app');
+</script>
+
+</body>
+</html>

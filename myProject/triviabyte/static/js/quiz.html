@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia Byte - Play</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.4.21/dist/vue.global.min.js"></script>
+</head>
+<body>
+
+<div class="container mt-5 pt-5">
+    <div id="app">
+        <div v-if="questions.length === 0">
+            <p>No questions available.</p>
+        </div>
+        <div v-else>
+            <div v-if="currentQuestionIndex < questions.length">
+                <h3>Question {{ currentQuestionIndex + 1 }}</h3>
+                <p>{{ currentQuestion.question_text }}</p>
+                <div v-for="choice in currentQuestion.choices" :key="choice.id">
+                    <input type="radio" :id="'choice_' + choice.id" :value="choice.id" v-model="selectedChoice">
+                    <label :for="'choice_' + choice.id">{{ choice.choice_text }}</label>
+                </div>
+                <button @click="submitAnswer">Next</button>
+            </div>
+            <div v-else>
+                <p>No more questions.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@3.4.21/dist/vue.global.min.js"></script>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                questions: [],
+                currentQuestionIndex: 0,
+                selectedChoice: null
+            };
+        },
+        methods: {
+            fetchQuestions() {
+                // Fetch questions for the selected category using AJAX
+                // Update this function based on your Django backend API endpoint
+            },
+            submitAnswer() {
+                // Handle submission of the answer
+                // You can update this function to send the selected choice to your backend
+                // and then fetch the next question
+                this.currentQuestionIndex++;
+                this.selectedChoice = null; // Clear selected choice for the next question
+            }
+        },
+        mounted() {
+            // Fetch questions when the component is mounted
+            this.fetchQuestions();
+        }
+    });
+
+    app.mount('#app');
+</script>
+
+</body>
+</html>
